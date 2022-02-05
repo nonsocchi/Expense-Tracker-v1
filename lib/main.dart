@@ -30,20 +30,22 @@ class MyHomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Expense Tracker'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: const Card(
-                child: Text('# CHART'),
-                color: Colors.purpleAccent,
-                elevation: 5,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                width: double.infinity,
+                child: const Card(
+                  child: Text('# CHART'),
+                  color: Colors.purpleAccent,
+                  elevation: 5,
+                ),
               ),
-            ),
-            const UserTransactions()
-          ],
+              const UserTransactions()
+            ],
+          ),
         ));
   }
 }

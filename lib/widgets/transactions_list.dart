@@ -8,45 +8,50 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions
-          .map((tx) => Card(
-                  // elevation: 5,
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 15.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple, width: 1.8),
-                    ),
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '₦${tx.amount}',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
-                          color: Colors.black),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return Container(
+      height: 400,
+      child: SingleChildScrollView(
+        child: Column(
+          children: transactions
+              .map((tx) => Card(
+                      // elevation: 5,
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        tx.title,
-                        style: const TextStyle(
-                            fontSize: 19.0, fontWeight: FontWeight.bold),
+                      Container(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 15.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.purple, width: 1.8),
+                        ),
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          '₦${tx.amount}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0,
+                              color: Colors.black),
+                        ),
                       ),
-                      Text(
-                        DateFormat.yMMMd().format(tx.date),
-                        style: const TextStyle(color: Colors.grey),
-                      )
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tx.title,
+                            style: const TextStyle(
+                                fontSize: 19.0, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            DateFormat.yMMMd().format(tx.date),
+                            style: const TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      ),
                     ],
-                  ),
-                ],
-              )))
-          .toList(),
+                  )))
+              .toList(),
+        ),
+      ),
     );
   }
 }
