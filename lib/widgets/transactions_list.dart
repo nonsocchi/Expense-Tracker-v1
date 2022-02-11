@@ -33,42 +33,37 @@ class TransactionList extends StatelessWidget {
             : ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
-                      // elevation: 5,
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 15.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                              width: 1.8),
-                        ),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Text(
-                          '₦${transactions[index].amount.toStringAsFixed(2)}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            transactions[index].title,
-                            style: Theme.of(context).textTheme.headline6,
+                    elevation: 5.0,
+                    margin: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 5.0,
+                    ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: SizedBox(
+                            height: 20.0, // padding at top of the chart card
+                            child: FittedBox(
+                              child: Text(
+                                '₦${transactions[index].amount.toStringAsFixed(0)}',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
                           ),
-                          Text(
-                            DateFormat.yMMMd().format(transactions[index].date),
-                            style: const TextStyle(color: Colors.grey),
-                          )
-                        ],
+                        ),
                       ),
-                    ],
-                  ));
+                      title: Text(
+                        transactions[index].title,
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                      subtitle: Text(
+                        DateFormat.yMMMd().format(transactions[index].date),
+                      ),
+                    ),
+                  );
                 },
                 itemCount: transactions.length,
               ));

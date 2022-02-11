@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:personal_expense_v1/widgets/chart.dart';
 import './widgets/transactions_list.dart';
 import './widgets/new_transaction.dart';
+import './widgets/chart.dart';
 import './models/transactions.dart';
 
 void main() {
@@ -18,18 +20,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: const TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold),
-            ),
+            headline6: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold),
+            button: const TextStyle(
+                fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20.0,
               fontWeight: FontWeight.bold),
         ),
-        // primarySwatch: Colors.purple,
       ).copyWith(
         colorScheme: ThemeData().colorScheme.copyWith(secondary: Colors.amber),
       ),
@@ -60,6 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now(),
     ) */
   ];
+
+  List<Transaction> get _recentTxns {
+    return _userTransactions
+        .where((tx) =>
+            tx.date.isAfter(DateTime.now().subtract(const Duration(days: 7))))
+        .toList();
+  }
 
   void _addNewTransaction(String txTitle, double txAmount) {
     final newTx = Transaction(
@@ -97,14 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: const Card(
-                child: Text('# CHART'),
-                color: Colors.purpleAccent,
-                elevation: 5,
-              ),
-            ),
+            Chart(_recentTxns),
             TransactionList(_userTransactions)
           ],
         ),
