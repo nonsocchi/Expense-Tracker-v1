@@ -9,28 +9,31 @@ class TransactionList extends StatelessWidget {
   TransactionList(this.transactions, this.deleteTxn);
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 300,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      child: Container(
         child: transactions.isEmpty
-            ? Column(
-                children: [
-                  Text(
-                    'No transactions yet!',
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  // ignore: sized_box_for_whitespace
-                  Container(
-                    height: 200,
-                    child: const Image(
-                      fit: BoxFit.cover,
-                      image: AssetImage('assets/images/waiting.png'),
+            ? LayoutBuilder(builder: (ctx, constraints) {
+                return Column(
+                  children: [
+                    Text(
+                      'No transactions yet!',
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                  ),
-                ],
-              )
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    // ignore: sized_box_for_whitespace
+                    Container(
+                      height: constraints.maxHeight * 0.6,
+                      child: const Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/waiting.png'),
+                      ),
+                    ),
+                  ],
+                );
+              })
             : ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
@@ -74,6 +77,8 @@ class TransactionList extends StatelessWidget {
                   );
                 },
                 itemCount: transactions.length,
-              ));
+              ),
+      ),
+    );
   }
 }

@@ -9,39 +9,46 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        FittedBox(child: Text('₦${spendingAmount.toStringAsFixed(0)}')),
-        const SizedBox(
-          height: 4.0,
-        ),
-        SizedBox(
-          height: 60.0,
-          width: 10.0,
-          child: Stack(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                    color: const Color.fromRGBO(220, 220, 220, 1),
-                    border: Border.all(color: Colors.grey, width: 1.0),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-              FractionallySizedBox(
-                heightFactor: spendingPctOfTotal,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).primaryColor),
-                ),
-              )
-            ],
+    return LayoutBuilder(builder: (ctx, constraints) {
+      return Column(
+        children: [
+          SizedBox(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                  child: Text('₦${spendingAmount.toStringAsFixed(0)}'))),
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
           ),
-        ),
-        const SizedBox(
-          height: 4.0,
-        ),
-        Text(label),
-      ],
-    );
+          SizedBox(
+            height: constraints.maxHeight * 0.6,
+            width: 10.0,
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: const Color.fromRGBO(220, 220, 220, 1),
+                      border: Border.all(color: Colors.grey, width: 1.0),
+                      borderRadius: BorderRadius.circular(20)),
+                ),
+                FractionallySizedBox(
+                  heightFactor: spendingPctOfTotal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Theme.of(context).primaryColor),
+                  ),
+                )
+              ],
+            ),
+          ),
+          SizedBox(
+            height: constraints.maxHeight * 0.05,
+          ),
+          SizedBox(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(child: Text(label))),
+        ],
+      );
+    });
   }
 }
