@@ -54,47 +54,54 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     return Card(
       elevation: 5.0,
-      child: Container(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: const InputDecoration(labelText: 'Expense Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Expense Amount'),
-              controller: _amountController,
-              onSubmitted: (_) => _submitData(),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(
-              height: 70.0,
-              child: Row(children: [
-                Expanded(
-                  child: Text(
-                    _selectedDate == null
-                        ? 'No Date Selected'
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+              left: 10.0,
+              right: 20.0,
+              top: 10.0,
+              bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: const InputDecoration(labelText: 'Expense Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
+              ),
+              TextField(
+                decoration: const InputDecoration(labelText: 'Expense Amount'),
+                controller: _amountController,
+                onSubmitted: (_) => _submitData(),
+                keyboardType: TextInputType.number,
+              ),
+              SizedBox(
+                height: 70.0,
+                child: Row(children: [
+                  Expanded(
+                    child: Text(
+                      _selectedDate == null
+                          ? 'No Date Selected'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
+                    ),
                   ),
-                ),
-                TextButton(
-                  onPressed: _presentDatePicker,
-                  child: Text(
-                    'Select Date',
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.bold),
+                  TextButton(
+                    onPressed: _presentDatePicker,
+                    child: Text(
+                      'Select Date',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-              ]),
-            ),
-            ElevatedButton(
-                onPressed: () => _submitData(),
-                child: const Text('Add transaction')),
-          ],
+                ]),
+              ),
+              ElevatedButton(
+                  onPressed: () => _submitData(),
+                  child: const Text('Add transaction')),
+            ],
+          ),
         ),
       ),
     );
