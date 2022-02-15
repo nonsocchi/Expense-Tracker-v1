@@ -86,6 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
     final myAppBar = AppBar(
       title: const Text('Expense Tracker'),
       actions: [
@@ -96,13 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
     final txnList = SizedBox(
-        height: (MediaQuery.of(context).size.height -
+        height: (mediaQuery.size.height -
                 myAppBar.preferredSize.height -
-                MediaQuery.of(context).padding.top) *
+                mediaQuery.padding.top) *
             0.7,
         child: TransactionList(_userTransactions, _deleteTransaction));
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
     return Scaffold(
       appBar: myAppBar,
       body: SingleChildScrollView(
@@ -127,18 +127,18 @@ class _MyHomePageState extends State<MyHomePage> {
             // two main widgets on homePage
             if (!isLandscape) // if portrait mode?
               SizedBox(
-                  height: (MediaQuery.of(context).size.height -
+                  height: (mediaQuery.size.height -
                           myAppBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
+                          mediaQuery.padding.top) *
                       0.25,
                   child: Chart(_recentTxns)),
             if (!isLandscape) txnList,
             if (isLandscape)
               _showChart
                   ? SizedBox(
-                      height: (MediaQuery.of(context).size.height -
+                      height: (mediaQuery.size.height -
                               myAppBar.preferredSize.height -
-                              MediaQuery.of(context).padding.top) *
+                              mediaQuery.padding.top) *
                           0.7,
                       child: Chart(_recentTxns))
                   : txnList
