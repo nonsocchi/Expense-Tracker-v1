@@ -2,4 +2,4 @@
 
 Manually manage weekly expenses.
 
-![Finished App]()
+![Finished App](https://github.com/nonsocchi/Expense-Tracker-v1/blob/master/resources/finished_app.gif)
