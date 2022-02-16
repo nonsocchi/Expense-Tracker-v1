@@ -84,6 +84,47 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildLandscapeContent(
+      MediaQueryData mediaQuery, AppBar myAppBar, Widget txnList) {
+    return [
+      Row(
+        // if landscape, show [_showChart] toggle
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text('Show Chart'),
+          Switch(
+              value: _showChart,
+              onChanged: (val) {
+                setState(() {
+                  _showChart = val;
+                });
+              })
+        ],
+      ),
+      _showChart
+          ? SizedBox(
+              height: (mediaQuery.size.height -
+                      myAppBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(_recentTxns))
+          : txnList
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, AppBar myAppBar, Widget txnList) {
+    return [
+      SizedBox(
+          height: (mediaQuery.size.height -
+                  myAppBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.25,
+          child: Chart(_recentTxns)),
+      txnList
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -110,38 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             if (isLandscape)
-              Row(
-                // if landscape, show [_showChart] toggle
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Show Chart'),
-                  Switch(
-                      value: _showChart,
-                      onChanged: (val) {
-                        setState(() {
-                          _showChart = val;
-                        });
-                      })
-                ],
-              ),
-            // two main widgets on homePage
-            if (!isLandscape) // if portrait mode?
-              SizedBox(
-                  height: (mediaQuery.size.height -
-                          myAppBar.preferredSize.height -
-                          mediaQuery.padding.top) *
-                      0.25,
-                  child: Chart(_recentTxns)),
-            if (!isLandscape) txnList,
-            if (isLandscape)
-              _showChart
-                  ? SizedBox(
-                      height: (mediaQuery.size.height -
-                              myAppBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_recentTxns))
-                  : txnList
+              ..._buildLandscapeContent(mediaQuery, myAppBar, txnList),
+            if (!isLandscape)
+              ..._buildPortraitContent(mediaQuery, myAppBar, txnList),
           ],
         ),
       ),
